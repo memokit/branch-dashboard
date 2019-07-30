@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import GoogleMapReact from 'google-map-react';
+import BranchModel from "../models/branchModel";
 
 class MapBranch extends Component {
 
@@ -13,10 +14,12 @@ class MapBranch extends Component {
     };
 
     handleApiLoaded(map, maps) {
-        let marker = new maps.Marker({
-            position: this.props.center,
-            map,
-            title: 'Kerry'
+        BranchModel.branches.forEach(branch => {
+            new maps.Marker({
+                position: branch.position,
+                map,
+                title: branch.name
+            })
         });
     }
 
