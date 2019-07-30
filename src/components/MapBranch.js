@@ -15,15 +15,26 @@ class MapBranch extends Component {
         zoom: 15
     };
 
+    markerClick = (marker) => {
+        console.log(`เลือกสาขา ${marker.get('branchId')} ${marker.get('title')}`);
+        
+    }
+
     handleApiLoaded(map, maps) {
         let bounds = new maps.LatLngBounds();
         let branches = this.props.branches;
         branches.forEach(branch => {
-            new maps.Marker({
+            let marker = new maps.Marker({
                 position: branch.position,
                 map,
-                title: branch.name
+                title: branch.name,
+                branchId: branch.id
             })
+
+            marker.addListener('click', () => {
+                this.markerClick(marker)
+            });
+
             bounds.extend(branch.position);
         });
 
