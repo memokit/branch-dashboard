@@ -1,5 +1,10 @@
+import API from "../services/API";
+
 const ActionType = {
-    SHOW_BRANCH_DATA: "SHOW_BRANCH_DATA"
+    SHOW_BRANCH_DATA: "SHOW_BRANCH_DATA",
+    REQUEST_INIT_DATA: "REQUEST_INIT_DATA",
+    REQUEST_INIT_DATA_SUCCESS: "REQUEST_INIT_DATA_SUCCESS",
+    REQUEST_INIT_DATA_FAILED: "REQUEST_INIT_DATA_FAILED"
 }
 
 const showBranchData = payload => ({
@@ -7,7 +12,23 @@ const showBranchData = payload => ({
     payload: payload
 });
 
+const  requestInitData = () => {
+    return async (dispatch) => {
+        try {
+            let response = await API.get('./branch.json');
+            console.log(response);
+            
+        } catch (error) {
+            console.log(error);
+        }
+        
+    }
+}
+
+
+
 export default {
     ActionType,
-    showBranchData
+    showBranchData,
+    requestInitData
 }

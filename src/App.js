@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Actions from "./redux/actions";
 
 import HeaderBar from './components/HeaderBar';
 import MapBranch from './components/MapBranch';
 import StatChart from './components/StatChart';
+import { connect } from 'react-redux'
 
 import { Layout, Menu, Row, Col } from 'antd';
 const { Header, Content, Footer } = Layout;
 
 class App extends Component {
+  componentDidMount() {
+    this.props.initData();
+  }
+
   render() {
     return (
     
@@ -42,4 +48,14 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  
+})
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    initData: () => dispatch(Actions.requestInitData())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
