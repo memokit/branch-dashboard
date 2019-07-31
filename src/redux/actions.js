@@ -17,9 +17,10 @@ const  requestInitData = () => {
         try {
             let response = await API.get('./branch.json');
             console.log(response);
-            
+            dispatch({ type: ActionType.REQUEST_INIT_DATA_SUCCESS, payload: response.data })
         } catch (error) {
             console.log(error);
+            dispatch({ type: ActionType.REQUEST_INIT_DATA_FAILED, payload: error })
         }
         
     }

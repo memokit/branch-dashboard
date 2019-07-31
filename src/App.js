@@ -8,12 +8,22 @@ import MapBranch from './components/MapBranch';
 import StatChart from './components/StatChart';
 import { connect } from 'react-redux'
 
-import { Layout, Menu, Row, Col } from 'antd';
+import { Layout, Menu, Row, Col, message } from 'antd';
 const { Header, Content, Footer } = Layout;
 
 class App extends Component {
   componentDidMount() {
     this.props.initData();
+  }
+
+  componentDidUpdate() {
+    if(this.props.notification.isShow){
+      if (this.props.notification.isError) {
+        message.error(this.props.notification.message);
+      } else {
+        message.success(this.props.notification.message);
+      }
+    }
   }
 
   render() {
@@ -49,13 +59,13 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  
-})
+  notification: state.app.notification
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
     initData: () => dispatch(Actions.requestInitData())
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
